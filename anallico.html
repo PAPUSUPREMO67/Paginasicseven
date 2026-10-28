@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador aleatorio</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f0f4f8;
+            padding-top: 100px;
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        #numero {
+            font-size: 80px;
+            margin: 30px;
+            color: #16a34a;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 15px 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generador aleatorio</h1>
+
+    <p>Presiona el botón para generar un número:</p>
+
+    <div id="numero">?</div>
+
+    <button onclick="generarNumero()">
+        Generar número
+    </button>
+
+    <script>
+        function generarNumero() {
+            const numero = Math.floor(Math.random() * 2) + 1;
+            document.getElementById("numero").textContent = numero;
+        }
+    </script>
+
+</body>
+</html>
