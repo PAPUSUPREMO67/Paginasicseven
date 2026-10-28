@@ -2,61 +2,322 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador aleatorio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#501923">
+  <title>HostiaHentai.net</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f0f4f8;
-            padding-top: 100px;
-        }
+  <style>
+    :root {
+      --fondo: #501923;
+      --fondo-tarjeta: #641f2c;
+      --amarillo: #ffdc45;
+      --rojo: #c52d3b;
+      --blanco: #fff1ed;
+    }
 
-        h1 {
-            color: #2563eb;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        #numero {
-            font-size: 80px;
-            margin: 30px;
-            color: #16a34a;
-        }
+    body {
+      background: var(--fondo);
+      color: var(--blanco);
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
 
-        button {
-            font-size: 20px;
-            padding: 15px 25px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+    /* ENCABEZADO */
 
-        button:hover {
-            background: #1d4ed8;
-        }
-    </style>
+    header {
+      text-align: center;
+      padding: 24px 16px 30px;
+    }
+
+    .boton-hh {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 32px;
+      margin-bottom: 12px;
+      background: var(--amarillo);
+      color: var(--rojo);
+      border: 2px solid var(--rojo);
+      border-radius: 6px;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .boton-hh:hover {
+      transform: scale(1.08);
+    }
+
+    .logo {
+      font-family: Papyrus, fantasy;
+      font-size: clamp(27px, 5vw, 48px);
+      font-weight: 900;
+      color: var(--amarillo);
+      -webkit-text-stroke: 1px var(--rojo);
+      text-shadow:
+        2px 2px 0 var(--rojo),
+        -1px -1px 0 var(--rojo);
+      overflow-wrap: anywhere;
+    }
+
+    .eslogan {
+      margin-top: 8px;
+      color: #e8c9c9;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    /* CATÁLOGO */
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 12px 20px 50px;
+    }
+
+    .titulo-seccion {
+      color: var(--amarillo);
+      font-family: Papyrus, fantasy;
+      font-size: 25px;
+      margin-bottom: 22px;
+      border-bottom: 2px solid #87313d;
+      padding-bottom: 12px;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tarjeta {
+      background: var(--fondo-tarjeta);
+      border: 1px solid #813341;
+      border-radius: 9px;
+      overflow: hidden;
+      cursor: pointer;
+      transition:
+        transform 0.2s,
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+      border-color: var(--amarillo);
+      box-shadow: 0 8px 22px #24090e55;
+    }
+
+    .portada {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      background: #351119;
+    }
+
+    .nombre-titulo {
+      color: var(--blanco);
+      font-size: 15px;
+      font-weight: bold;
+      padding: 14px;
+      line-height: 1.4;
+    }
+
+    /* VENTANA DE DETALLE */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: #16070beF;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.activo {
+      display: flex;
+    }
+
+    .modal-contenido {
+      position: relative;
+      background: var(--fondo-tarjeta);
+      border: 1px solid var(--rojo);
+      border-radius: 12px;
+      padding: 22px;
+      width: min(420px, 100%);
+      text-align: center;
+    }
+
+    .modal-imagen {
+      width: min(100%, 260px);
+      max-height: 55vh;
+      object-fit: contain;
+      border-radius: 7px;
+    }
+
+    .modal h2 {
+      color: var(--amarillo);
+      margin: 14px 0;
+    }
+
+    .cerrar {
+      position: absolute;
+      right: 12px;
+      top: 8px;
+      background: none;
+      color: white;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: #c7a4a8;
+      font-size: 12px;
+      border-top: 1px solid #78303c;
+    }
+
+    /* ADAPTACIÓN A MÓVILES */
+
+    @media (max-width: 650px) {
+      .catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+      }
+
+      main {
+        padding-inline: 13px;
+      }
+
+      .nombre-titulo {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .catalogo {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <h1>Generador aleatorio</h1>
+  <header id="inicio">
+    <a class="boton-hh" href="#inicio" aria-label="Ir al inicio">
+      HH
+    </a>
 
-    <p>Presiona el botón para generar un número:</p>
+    <h1 class="logo">HostiaHentai.net</h1>
 
-    <div id="numero">?</div>
+    <p class="eslogan">Tu Hentai al Español</p>
+  </header>
 
-    <button onclick="generarNumero()">
-        Generar número
-    </button>
+  <main>
+    <h2 class="titulo-seccion">Más recientes</h2>
 
-    <script>
-        function generarNumero() {
-            const numero = Math.floor(Math.random() * 2) + 1;
-            document.getElementById("numero").textContent = numero;
-        }
-    </script>
+    <section class="catalogo" id="catalogo">
+
+      <article class="tarjeta"
+        data-titulo="Título de ejemplo 01"
+        data-imagen="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+01">
+        <img
+          class="portada"
+          src="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+01"
+          alt="Portada de ejemplo 01"
+          loading="lazy">
+        <h3 class="nombre-titulo">Título de ejemplo 01</h3>
+      </article>
+
+      <article class="tarjeta"
+        data-titulo="Título de ejemplo 02"
+        data-imagen="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+02">
+        <img
+          class="portada"
+          src="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+02"
+          alt="Portada de ejemplo 02"
+          loading="lazy">
+        <h3 class="nombre-titulo">Título de ejemplo 02</h3>
+      </article>
+
+      <article class="tarjeta"
+        data-titulo="Título de ejemplo 03"
+        data-imagen="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+03">
+        <img
+          class="portada"
+          src="https://placehold.co/600x800/641f2c/ffdc45?text=Portada+03"
+          alt="Portada de ejemplo 03"
+          loading="lazy">
+        <h3 class="nombre-titulo">Título de ejemplo 03</h3>
+      </article>
+
+    </section>
+  </main>
+
+  <div class="modal" id="modal" role="dialog"
+    aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-contenido">
+      <button class="cerrar" id="cerrar"
+        aria-label="Cerrar ventana">&times;</button>
+      <img class="modal-imagen" id="modal-imagen" src="" alt="">
+      <h2 id="modal-titulo"></h2>
+    </div>
+  </div>
+
+  <footer>
+    HostiaHentai.net · Tu Hentai al Español
+  </footer>
+
+  <script>
+    const tarjetas = document.querySelectorAll(".tarjeta");
+    const modal = document.getElementById("modal");
+    const modalImagen = document.getElementById("modal-imagen");
+    const modalTitulo = document.getElementById("modal-titulo");
+    const cerrar = document.getElementById("cerrar");
+
+    function abrirModal(tarjeta) {
+      modalTitulo.textContent = tarjeta.dataset.titulo;
+      modalImagen.src = tarjeta.dataset.imagen;
+      modalImagen.alt = tarjeta.dataset.titulo;
+      modal.classList.add("activo");
+      cerrar.focus();
+    }
+
+    function cerrarModal() {
+      modal.classList.remove("activo");
+    }
+
+    tarjetas.forEach((tarjeta) => {
+      tarjeta.addEventListener("click", () => abrirModal(tarjeta));
+    });
+
+    cerrar.addEventListener("click", cerrarModal);
+
+    modal.addEventListener("click", (evento) => {
+      if (evento.target === modal) cerrarModal();
+    });
+
+    document.addEventListener("keydown", (evento) => {
+      if (evento.key === "Escape") cerrarModal();
+    });
+  </script>
 
 </body>
 </html>
